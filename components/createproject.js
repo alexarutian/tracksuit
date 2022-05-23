@@ -7,7 +7,7 @@ const CreateProject = () => {
 
   const updateProjectList = (projectListObject) => {
     const newProjectList = projectListObject.value.concat(text);
-    projectListObject.setter(newProjectList);
+    projectListObject.set(newProjectList);
     setText("");
   };
 

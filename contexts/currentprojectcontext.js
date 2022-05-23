@@ -1,7 +1,7 @@
 import React from "react";
 
 const CurrentProjectContext = React.createContext({
-  value: "",
+  value: "nothing",
   setter: () => {},
 });
 export default CurrentProjectContext;

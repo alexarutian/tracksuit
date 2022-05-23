@@ -1,4 +1,5 @@
 import React from "react";
+import CurrentProjectContext from "../contexts/currentprojectcontext.js";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const Greetings = ({ name }) => {
@@ -21,8 +22,12 @@ const Greetings = ({ name }) => {
       <Text>
         {greetingString}, {name}!
       </Text>
-      <Text>{todayTime}</Text>
-      <Text>You are currently working on {currentProject}</Text>
+      {/* <Text>{todayTime}</Text> */}
+      <CurrentProjectContext.Consumer>
+        {(currentProjectObject) => {
+          return <Text>You are currently working on {currentProjectObject.value}</Text>;
+        }}
+      </CurrentProjectContext.Consumer>
     </View>
   );
 };

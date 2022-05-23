@@ -4,22 +4,24 @@ import CreateProject from "./components/createproject.js";
 import ProjectList from "./components/projectlist.js";
 import LogProject from "./components/logproject.js";
 import ProjectListContext from "./contexts/projectlistcontext.js";
+import CurrentProjectContext from "./contexts/currentprojectcontext";
+import { getStateValue, getStateValueCollection } from "./utilities/contexthelper.js";
 import { StyleSheet, Text, View } from "react-native";
 
-export const UsernameContext = React.createContext("default value");
-
 export default function App() {
-  const [projectList, setProjectList] = React.useState(["default1", "default2"]);
-  // later - create helper function
-  const projectListValue = { value: projectList, setter: setProjectList };
+  const myState = getStateValueCollection({
+    currentProjectValue: "nothing",
+    projectListValue: ["default1", "default2"],
+  });
 
-  const [currentProject, setCurrentProject] = React.useState("");
-  const currentProjectValue = { value: currentProject, setter: setCurrentProject };
+  // setter gets passed along with the value, allows child to manipulate state at higher level
+  const [currentHours, setCurrentHours] = React.useState();
+  const currentHoursValue = { value: currentHours, set: setCurrentHours };
 
   return (
     <View style={styles.container}>
-      <ProjectListContext.Provider value={projectListValue}>
-        <UsernameContext.Provider value={"alexarutian"}>
+      <CurrentProjectContext.Provider value={myState.currentProjectValue}>
+        <ProjectListContext.Provider value={myState.projectListValue}>
           <View style={styles.greetings}>
             <Greetings name={"Alex"}></Greetings>
           </View>
@@ -28,23 +30,12 @@ export default function App() {
             <ProjectList></ProjectList>
             <LogProject></LogProject>
           </View>
-          <Username />
-        </UsernameContext.Provider>
-        <View>
-          <EList />
-        </View>
-      </ProjectListContext.Provider>
+          <View>
+            <EList />
+          </View>
+        </ProjectListContext.Provider>
+      </CurrentProjectContext.Provider>
     </View>
-  );
-}
-
-function Username() {
-  return (
-    <UsernameContext.Consumer>
-      {(username) => {
-        return <Text>{username}</Text>;
-      }}
-    </UsernameContext.Consumer>
   );
 }
 
