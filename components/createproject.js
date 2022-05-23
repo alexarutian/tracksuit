@@ -37,7 +37,7 @@ const CreateProject = () => {
                   updateProjectList(projectListObject);
                 }}
               >
-                <Text style={styles.buttonLabel}>Add Project</Text>
+                <Text style={styles.buttonLabel}>Add Another Project</Text>
               </TouchableOpacity>
             </View>
           );

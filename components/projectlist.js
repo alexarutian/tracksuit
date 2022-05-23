@@ -5,7 +5,7 @@ import { Text, View } from "react-native";
 const ProjectList = () => {
   return (
     <View>
-      <Text>Project list:</Text>
+      <Text>Current active projects:</Text>
       <ProjectListContext.Consumer>
         {(projectListObject) => {
           return (

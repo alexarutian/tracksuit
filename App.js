@@ -19,19 +19,19 @@ export default function App() {
   const currentHoursValue = { value: currentHours, set: setCurrentHours };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.page}>
       <CurrentProjectContext.Provider value={myState.currentProjectValue}>
         <ProjectListContext.Provider value={myState.projectListValue}>
-          <View style={styles.greetings}>
+          <View style={styles.header}>
             <Greetings name={"Alex"}></Greetings>
           </View>
-          <View style={styles.createproject}>
-            <CreateProject></CreateProject>
-            <ProjectList></ProjectList>
+          <View style={styles.content}>
             <LogProject></LogProject>
-          </View>
-          <View>
-            <EList />
+            <View style={styles.createproject}>
+              <ProjectList></ProjectList>
+              <CreateProject></CreateProject>
+            </View>
+            <View></View>
           </View>
         </ProjectListContext.Provider>
       </CurrentProjectContext.Provider>
@@ -39,19 +39,21 @@ export default function App() {
   );
 }
 
-function EList() {
-  return (
-    <ProjectListContext.Consumer>
-      {(valueObject) => {
-        return valueObject.value.map((project, idx) => <Text key={idx}>{project}</Text>);
-      }}
-    </ProjectListContext.Consumer>
-  );
-}
-
 const styles = StyleSheet.create({
-  container: {
+  page: {
+    height: "100%",
     paddingTop: 50,
+  },
+  header: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    height: 75,
+    borderWidth: 1,
+    width: "100%",
+    backgroundColor: "lightgray",
+  },
+  content: {
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#fff",
@@ -60,12 +62,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "red",
   },
-  greetings: {
-    height: 75,
-    borderWidth: 1,
-  },
+
   createproject: {
     height: 200,
     borderWidth: 1,
+    marginTop: 200,
   },
 });

@@ -28,7 +28,7 @@ const LogProject = () => {
 const SelectorButton = ({ item, stateValue }) => {
   return (
     <TouchableOpacity
-      style={styles.projectSelection}
+      style={styles.button}
       onPress={() => {
         stateValue.set(item);
       }}
@@ -40,7 +40,7 @@ const SelectorButton = ({ item, stateValue }) => {
 
 const SelectorButtonList = ({ itemList, stateValue }) => {
   return (
-    <View style={styles.projectSelections}>
+    <View style={styles.buttonList}>
       {itemList.map((project, idx) => (
         <SelectorButton key={idx} item={project} stateValue={stateValue} />
       ))}
@@ -49,14 +49,15 @@ const SelectorButtonList = ({ itemList, stateValue }) => {
 };
 
 const styles = StyleSheet.create({
-  projectSelection: {
+  button: {
     backgroundColor: "yellow",
-    width: 130,
-    height: 20,
-    padding: 2,
-    margin: 5,
+    height: 40,
+    width: 150,
+    padding: 10,
+    margin: 10,
+    borderRadius: "8px",
   },
-  projectSelections: {
+  buttonList: {
     borderWidth: 1,
     borderColor: "red",
     display: "flex",
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexWrap: "wrap",
+    width: "100%",
   },
   buttonLabel: {
     textAlign: "center",
