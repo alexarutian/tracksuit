@@ -2,6 +2,7 @@ import React from "react";
 import Greetings from "./components/greetings.js";
 import CreateProject from "./components/createproject.js";
 import ProjectList from "./components/projectlist.js";
+import RequestProjectList from "./components/requestprojectlist.js";
 import LogProject from "./components/logproject.js";
 import ProjectListContext from "./contexts/projectlistcontext.js";
 import CurrentProjectContext from "./contexts/currentprojectcontext";
@@ -30,8 +31,8 @@ export default function App() {
             <View style={styles.createproject}>
               <ProjectList></ProjectList>
               <CreateProject></CreateProject>
+              <RequestProjectList></RequestProjectList>
             </View>
-            <View></View>
           </View>
         </ProjectListContext.Provider>
       </CurrentProjectContext.Provider>
