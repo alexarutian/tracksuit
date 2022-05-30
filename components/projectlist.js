@@ -1,22 +1,18 @@
 import React from "react";
-import ProjectListContext from "../contexts/projectlistcontext.js";
+import { AppContext } from "../contexts/appcontext.js";
+import { getStateValue, getStateValueCollection } from "../utilities/contexthelper.js";
 import { Text, View } from "react-native";
 
 const ProjectList = () => {
+  const context = React.useContext(AppContext);
   return (
     <View>
-      <Text>Current active projects:</Text>
-      <ProjectListContext.Consumer>
-        {(projectListObject) => {
-          return (
-            <View>
-              {projectListObject.value.map((project, idx) => (
-                <Text key={idx}>{project}</Text>
-              ))}
-            </View>
-          );
-        }}
-      </ProjectListContext.Consumer>
+      <Text>We got these items:</Text>
+      <View>
+        {context.projectList.value.map((item, idx) => (
+          <Text key={idx}>{item.name}</Text>
+        ))}
+      </View>
     </View>
   );
 };

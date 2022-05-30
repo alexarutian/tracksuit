@@ -1,26 +1,25 @@
 import React from "react";
-import ProjectListContext from "../contexts/projectlistcontext.js";
-import CurrentProjectContext from "../contexts/currentprojectcontext.js";
+import { AppContext } from "../contexts/appcontext.js";
 
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 
 const LogProject = () => {
+  const context = React.useContext(AppContext);
+
   return (
     <View>
       <Text>Choose today's project:</Text>
-      <CurrentProjectContext.Consumer>
-        {(currentProjectStateValue) => {
-          return (
-            <ProjectListContext.Consumer>
-              {(projectListStateValue) => {
-                return (
-                  <SelectorButtonList itemList={projectListStateValue.value} stateValue={currentProjectStateValue} />
-                );
-              }}
-            </ProjectListContext.Consumer>
-          );
-        }}
-      </CurrentProjectContext.Consumer>
+      <SelectorButtonList itemList={context.projectList.value} stateValue={context.currentProject} />
+    </View>
+  );
+};
+
+const SelectorButtonList = ({ itemList, stateValue }) => {
+  return (
+    <View style={styles.buttonList}>
+      {itemList.map((project, idx) => (
+        <SelectorButton key={idx} item={project.name} stateValue={stateValue} />
+      ))}
     </View>
   );
 };
@@ -35,16 +34,6 @@ const SelectorButton = ({ item, stateValue }) => {
     >
       <Text style={styles.buttonLabel}>{item}</Text>
     </TouchableOpacity>
-  );
-};
-
-const SelectorButtonList = ({ itemList, stateValue }) => {
-  return (
-    <View style={styles.buttonList}>
-      {itemList.map((project, idx) => (
-        <SelectorButton key={idx} item={project} stateValue={stateValue} />
-      ))}
-    </View>
   );
 };
 
