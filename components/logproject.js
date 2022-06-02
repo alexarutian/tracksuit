@@ -1,6 +1,7 @@
 import React from "react";
 import { AppContext } from "../contexts/appcontext.js";
-
+import { createNewLog } from "../utilities/ajax.js";
+import { goldColor, greenColor, lightBeigeColor, redColor } from "../utilities/stylevars.js";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 
 const LogProject = () => {
@@ -9,46 +10,53 @@ const LogProject = () => {
   return (
     <View>
       <Text>Choose today's project:</Text>
-      <SelectorButtonList itemList={context.projectList.value} stateValue={context.currentProject} />
+      <SelectorButtonList itemList={context.projectList.value} />
     </View>
   );
 };
 
-const SelectorButtonList = ({ itemList, stateValue }) => {
+const SelectorButtonList = () => {
+  const context = React.useContext(AppContext);
   return (
     <View style={styles.buttonList}>
-      {itemList.map((project, idx) => (
-        <SelectorButton key={idx} item={project.name} stateValue={stateValue} />
+      {context.projectList.value.map((project, idx) => (
+        <SelectorButton key={idx} item={project} />
       ))}
     </View>
   );
 };
 
-const SelectorButton = ({ item, stateValue }) => {
+const SelectorButton = ({ item }) => {
+  const context = React.useContext(AppContext);
+
+  const createLog = async (project) => {
+    context.currentProjectName.set(project.name);
+    createNewLog(context, { project_id: project.id, user_token: context.userToken.value });
+  };
+
   return (
     <TouchableOpacity
       style={styles.button}
       onPress={() => {
-        stateValue.set(item);
+        createLog(item);
       }}
     >
-      <Text style={styles.buttonLabel}>{item}</Text>
+      <Text style={styles.buttonLabel}>{item.name}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "yellow",
-    height: 40,
-    width: 150,
+    backgroundColor: redColor,
+    height: 50,
     padding: 10,
-    margin: 10,
+    margin: 5,
     borderRadius: "8px",
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonList: {
-    borderWidth: 1,
-    borderColor: "red",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
@@ -58,7 +66,8 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     textAlign: "center",
-    color: "red",
+    color: lightBeigeColor,
+    fontSize: 20,
   },
 });
 

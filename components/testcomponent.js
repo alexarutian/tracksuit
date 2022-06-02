@@ -1,6 +1,5 @@
 import React from "react";
 import { AppContext } from "../contexts/appcontext.js";
-import { getStateValue, getStateValueCollection } from "../utilities/contexthelper.js";
 import { Text, View, TouchableOpacity } from "react-native";
 
 const TestComponent = (props) => {

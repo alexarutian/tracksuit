@@ -1,59 +1,22 @@
 import React from "react";
 import { AppContext } from "../contexts/appcontext.js";
 import { getStateValue } from "../utilities/contexthelper.js";
-import { Text, TextInput, StyleSheet, View, TouchableOpacity } from "react-native";
+import { redColor } from "../utilities/stylevars.js";
+import { createNewProject } from "../utilities/ajax.js";
+import { Text, TextInput, StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from "react-native";
 
 const CreateProject = () => {
   const context = React.useContext(AppContext);
 
   const textValue = getStateValue(null);
 
-  const errorValue = getStateValue(null);
-  const isLoadedValue = getStateValue(false);
-  const itemsValue = getStateValue([]);
-
-  const updateProjectList = (projectListObject) => {
-    const newProjectList = projectListObject.value.concat(textValue.value);
-    projectListObject.set(newProjectList);
+  const createNewProj = () => {
+    createNewProject(context, { name: textValue.value, user_token: context.userToken.value });
     textValue.set("");
   };
 
-  const createNewProject = (projListObj) => {
-    let headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    headers.append("Accept", "application/json");
-
-    return fetch("http://192.168.0.186:8000/backend/projects/", {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ name: textValue.value }),
-    })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          // alert(result.all_projects);
-          isLoadedValue.set(true);
-          itemsValue.set(result.project_id);
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          isLoadedValue.set(true);
-          errorValue.set(error);
-        }
-      )
-      .then(context.ajax.test());
-  };
-
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
         onChangeText={textValue.set}
@@ -63,13 +26,8 @@ const CreateProject = () => {
         clearButtonMode="always"
       ></TextInput>
       <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            createNewProject(context.projectList.value);
-          }}
-        >
-          <Text style={styles.buttonLabel}>Add Another Project</Text>
+        <TouchableOpacity style={styles.button} onPress={createNewProj}>
+          <Text style={styles.buttonLabel}>ADD PROJECT</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -77,22 +35,26 @@ const CreateProject = () => {
 };
 
 const styles = StyleSheet.create({
+  container: { justifyContent: "center", alignItems: "center", borderWidth: 1 },
   input: {
     height: 40,
     width: 300,
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    fontSize: 18,
   },
   button: {
     height: 40,
     width: 150,
     padding: 10,
-    backgroundColor: "red",
+    backgroundColor: redColor,
+    borderRadius: 5,
   },
   buttonLabel: {
     color: "white",
     textAlign: "center",
+    fontSize: 20,
   },
 });
 
