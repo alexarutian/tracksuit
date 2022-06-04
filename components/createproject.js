@@ -27,7 +27,7 @@ const CreateProject = () => {
       ></TextInput>
       <View>
         <TouchableOpacity style={styles.button} onPress={createNewProj}>
-          <Text style={styles.buttonLabel}>ADD PROJECT</Text>
+          <Text style={styles.buttonLabel}>add project</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -45,16 +45,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   button: {
-    height: 40,
+    height: 45,
     width: 150,
     padding: 10,
     backgroundColor: redColor,
     borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonLabel: {
     color: "white",
     textAlign: "center",
     fontSize: 20,
+    fontFamily: "Chicle",
+    letterSpacing: 1.2,
   },
 });
 

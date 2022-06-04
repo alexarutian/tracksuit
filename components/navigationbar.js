@@ -22,7 +22,9 @@ const NavigationBar = ({ options }) => {
             clicked(option.name);
           }}
         >
-          <Text style={styles.buttonLabel}>{option.label}</Text>
+          <Text style={context.currentPage.value == option.name ? styles.activeButtonLabel : styles.buttonLabel}>
+            {option.label}
+          </Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -49,12 +51,23 @@ const styles = StyleSheet.create({
     backgroundColor: lightBeigeColor,
   },
   buttonLabel: {
+    color: goldColor,
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 24,
+    letterSpacing: 1.2,
+    fontFamily: "Chicle",
+  },
+  activeButtonLabel: {
     color: redColor,
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 24,
     letterSpacing: 1.2,
     fontFamily: "Chicle",
+    textDecorationColor: redColor,
+    textDecorationStyle: "dotted",
+    textDecorationLine: "underline",
   },
 });
 

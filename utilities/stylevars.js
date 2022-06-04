@@ -4,5 +4,5 @@ const greenColor = "#525B2C";
 const beigeColor = "#F0D2A8";
 const lightBeigeColor = "#F9EDDC";
 const grayColor = "#D6D6D6";
-
-export { goldColor, redColor, greenColor, beigeColor, lightBeigeColor, grayColor };
+const offWhite = "#FCF6EE";
+export { goldColor, redColor, greenColor, beigeColor, lightBeigeColor, grayColor, offWhite };

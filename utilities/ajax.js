@@ -57,6 +57,20 @@ const createNewProject = (context, body) => {
     .then(getAllProjects(context, { user_token: context.userToken.value }));
 };
 
+const getAllLogs = (context, params) => {
+  getJSONFetch("http://192.168.0.186:8000/backend/logs/", params)
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        context.logList.set(result.all_logs);
+        context.error.set(null);
+      },
+      (error) => {
+        context.error.set(error.message);
+      }
+    );
+};
+
 const createNewLog = (context, body) => {
   postJSONFetch("http://192.168.0.186:8000/backend/logs/", body)
     .then((res) => res.json())
@@ -89,7 +103,24 @@ const loginUser = (context, body) => {
         // }
       },
       (error) => {
-        context.error.set(error);
+        context.error.set(error.message);
+      }
+    );
+};
+
+const createNewUser = (context, body) => {
+  postJSONFetch("http://192.168.0.186:8000/backend/users/", body)
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        context.email.set(result.email);
+        context.userToken.set(result.token);
+        storeToken(context, result.token, result.email).then(() => {
+          context.error.set(null);
+        });
+      },
+      (error) => {
+        context.error.set(error.message);
       }
     );
 };
@@ -112,4 +143,4 @@ const deleteToken = async (context) => {
   }
 };
 
-export { getAllProjects, createNewProject, createNewLog, loginUser, deleteToken };
+export { getAllProjects, createNewProject, getAllLogs, createNewLog, loginUser, createNewUser, deleteToken };

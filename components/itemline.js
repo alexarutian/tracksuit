@@ -31,7 +31,7 @@ const ItemLine = ({ name, options }) => {
           // additional radius outside of pressable area
           hitSlop={10}
         >
-          <SimpleLineIcons name="options" size={24} color={greenColor} />
+          <SimpleLineIcons name="options" size={24} color={"black"} />
         </Pressable>
       </View>
       <ItemOptionMenu
@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
   bigBoldLabel: {
     fontSize: 18,
     fontWeight: "bold",
-    color: greenColor,
+    color: "black",
+    fontFamily: "EpilogueSemiBold",
   },
 });
 
