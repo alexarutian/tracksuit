@@ -1,7 +1,7 @@
 import React from "react";
 
 import LoginUser from "../components/loginuser.js";
-import { greenColor } from "../utilities/stylevars.js";
+import { greenColor, goldColor } from "../utilities/stylevars.js";
 
 import { AppContext } from "../contexts/appcontext.js";
 import { StyleSheet, View, Text } from "react-native";
@@ -13,19 +13,21 @@ const User = () => {
   return (
     <View style={styles.container}>
       <View style={styles.settingsSection}>
-        <Text style={styles.settingsHeader}>Settings</Text>
+        <View style={styles.settingsHeader}>
+          <Text style={styles.settingsHeaderText}>Settings</Text>
+        </View>
         <Slider
           containerStyle={styles.sliderContainer}
           value={context.defaultHours.value}
-          minimumValue={1}
-          maximumValue={16}
+          minimumValue={0}
+          maximumValue={12}
           onValueChange={(value) => context.defaultHours.set(value)}
-          step={0.5}
+          step={1}
         ></Slider>
-        <Text>{context.defaultHours.value}</Text>
+        <Text>{context.defaultHours.value} hours per day [default]</Text>
       </View>
       <View style={styles.settingsSection}>
-        <Text style={styles.settingsHeader}>User Info</Text>
+        <Text style={styles.settingsHeaderText}>User Info</Text>
         <Text>
           You are currently logged in as <Text style={{ fontFamily: "EpilogueSemiBold" }}>{context.email.value}</Text>
         </Text>
@@ -53,8 +55,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
   },
-  settingsHeader: {
+  settingsHeader: {},
+  settingsHeaderText: {
     fontFamily: "Chicle",
+
     fontSize: 24,
     color: greenColor,
   },

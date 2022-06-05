@@ -22,6 +22,8 @@ const Logs = () => {
 const styles = StyleSheet.create({
   container: {
     width: "95%",
+    backgroundColor: "white",
+    borderRadius: 8,
   },
 });
 

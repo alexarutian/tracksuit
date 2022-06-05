@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     fontSize: 18,
+    fontFamily: "Epilogue",
   },
   button: {
     height: 45,

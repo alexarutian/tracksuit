@@ -21,13 +21,15 @@ const Greetings = ({ name }) => {
 
   return (
     <View style={styles.container}>
-      <Text>
-        {greetingString}, <Text style={{ fontWeight: "bold" }}>{name}</Text>!
+      <Text style={{ fontFamily: "Epilogue" }}>
+        {greetingString}, <Text style={{ fontFamily: "EpilogueSemiBold" }}>{name}</Text>!
       </Text>
       {/* <Text>{todayTime}</Text> */}
-      <Text>
+      <Text style={{ fontFamily: "Epilogue" }}>
         You are currently working on{" "}
-        <Text style={{ fontWeight: "bold", color: redColor }}>{context.currentProjectName.value}</Text>
+        <Text style={{ fontWeight: "bold", color: redColor, fontFamily: "EpilogueSemiBold" }}>
+          {context.currentProjectName.value}
+        </Text>
       </Text>
       {/* <Text>{context.userToken.value}</Text> */}
     </View>
