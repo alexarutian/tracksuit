@@ -1,4 +1,5 @@
 import React from "react";
+import TSButton from "./tsbutton.js";
 import { AppContext } from "../contexts/appcontext.js";
 import { getStateValue } from "../utilities/contexthelper.js";
 import { loginUser, deleteToken } from "../utilities/ajax.js";
@@ -40,12 +41,28 @@ const LoginUser = () => {
     <View style={styles.container}>
       {!context.userToken.value && (
         <View style={styles.modeButtons}>
-          <TouchableOpacity style={styles.optionButton} onPress={selectLogin}>
-            <Text style={styles.optionButtonLabel}>login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.optionButton} onPress={selectCreate}>
-            <Text style={styles.optionButtonLabel}>new user</Text>
-          </TouchableOpacity>
+          <View style={styles.modeButton}>
+            <TSButton
+              label={"login"}
+              fontColor={redColor}
+              functionOnPress={selectLogin}
+              width={100}
+              backgroundColor={"white"}
+              borderWidth={2}
+              borderColor={redColor}
+            ></TSButton>
+          </View>
+          <View style={styles.modeButton}>
+            <TSButton
+              label={"new user"}
+              fontColor={redColor}
+              functionOnPress={selectCreate}
+              width={100}
+              backgroundColor={"white"}
+              borderWidth={2}
+              borderColor={redColor}
+            ></TSButton>
+          </View>
         </View>
       )}
       {mode.value == "login" && (
@@ -67,9 +84,13 @@ const LoginUser = () => {
             selectTextOnFocus={true}
             clearButtonMode="always"
           ></TextInput>
-          <TouchableOpacity style={styles.button} onPress={login}>
-            <Text style={styles.buttonLabel}>login</Text>
-          </TouchableOpacity>
+          <TSButton
+            label={"login"}
+            fontColor={"white"}
+            functionOnPress={login}
+            width={100}
+            backgroundColor={redColor}
+          ></TSButton>
         </View>
       )}
       {mode.value == "create" && (
@@ -100,16 +121,24 @@ const LoginUser = () => {
             selectTextOnFocus={true}
             clearButtonMode="always"
           ></TextInput>
-          <TouchableOpacity style={styles.button} onPress={createUser}>
-            <Text style={styles.buttonLabel}>create</Text>
-          </TouchableOpacity>
+          <TSButton
+            label={"create"}
+            fontColor={"white"}
+            functionOnPress={createUser}
+            width={100}
+            backgroundColor={redColor}
+          ></TSButton>
         </View>
       )}
       {context.userToken.value && (
         <View>
-          <TouchableOpacity style={styles.button} onPress={logout}>
-            <Text style={styles.buttonLabel}>logout</Text>
-          </TouchableOpacity>
+          <TSButton
+            label={"logout"}
+            fontColor={"white"}
+            functionOnPress={logout}
+            width={100}
+            backgroundColor={redColor}
+          ></TSButton>
         </View>
       )}
       <Text>{context.error.value}</Text>
@@ -143,37 +172,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: lightBeigeColor,
   },
-  optionButton: {
-    height: 45,
-    width: 100,
-    padding: 10,
+  modeButton: {
     margin: 10,
-    backgroundColor: "white",
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 2,
-    borderColor: redColor,
   },
   optionButtonLabel: {
     color: redColor,
-    textAlign: "center",
-    fontSize: 20,
-    fontFamily: "Chicle",
-    letterSpacing: 1.2,
-  },
-  button: {
-    height: 45,
-    width: 100,
-    padding: 10,
-    margin: 10,
-    backgroundColor: redColor,
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonLabel: {
-    color: "white",
     textAlign: "center",
     fontSize: 20,
     fontFamily: "Chicle",

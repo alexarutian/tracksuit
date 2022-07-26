@@ -1,7 +1,6 @@
 import React from "react";
 
-import Log from "./pages/log.js";
-import User from "./pages/user.js";
+import Settings from "./pages/settings.js";
 import Logs from "./pages/logs.js";
 import Projects from "./pages/projects.js";
 
@@ -10,7 +9,7 @@ import NavigationBar from "./components/navigationbar.js";
 
 import { AppContext } from "./contexts/appcontext.js";
 import { getStateValue, getStateValueCollection } from "./utilities/contexthelper.js";
-import { getAllProjects, getAllLogs } from "./utilities/ajax.js";
+import { getAllProjects, getAllLogs, createNewProject, createNewLog } from "./utilities/ajax.js";
 import { beigeColor, goldColor, redColor, greenColor, offWhite } from "./utilities/stylevars.js";
 import { StyleSheet, View, Text } from "react-native";
 import * as SecureStore from "expo-secure-store";
@@ -19,20 +18,28 @@ import * as Font from "expo-font";
 export default function App() {
   // set up initial state of app
   const context = getStateValueCollection({
-    username: "tucan sam",
-    other: "tucan ham",
+    // fetch request dumps
     projectList: [],
+    visibleProjects: [],
+    archivedProjects: [],
     logList: [],
+    logListByProject: [],
+    // internal state situations
     currentProjectName: "nothing",
+    openProject: null,
     latestLog: null,
-    error: null,
     email: "not logged in yet!",
     userToken: null,
     currentPage: "track",
-    defaultHours: 8,
+    // error messages
+    statusCode: null,
+    error: null,
+    userError: null,
   });
-  context.ajax = { getAllProjects };
-  context.ajax.test = () => {
+  // store ajax functions into context
+  context.ajax = { getAllProjects, getAllLogs, createNewProject, createNewLog };
+  // set up initial external fetches to run everytime the app is refreshed
+  context.ajax.initialFetches = () => {
     getAllProjects(context, { user_token: context.userToken.value });
     getAllLogs(context, { user_token: context.userToken.value });
   };
@@ -40,7 +47,7 @@ export default function App() {
   const fontsLoaded = getStateValue(false);
   async function loadFonts() {
     await Font.loadAsync({
-      // Load a font from a static resource (assets folder)
+      // Loading fonts directly from static resource (assets folder)
       Chicle: require("./assets/Chicle-Regular.ttf"),
       Montserrat: require("./assets/Montserrat-Regular.ttf"),
       MontserratSemiBold: require("./assets/Montserrat-SemiBold.ttf"),
@@ -55,7 +62,7 @@ export default function App() {
     try {
       const token = await SecureStore.getItemAsync("user_token");
       const email = await SecureStore.getItemAsync("user_email");
-      // alert(token);
+
       if (token) {
         context.userToken.set(token);
       }
@@ -75,7 +82,7 @@ export default function App() {
     } else {
       if (!userDataLoaded.value) {
         userDataLoaded.set(true);
-        context.ajax.test();
+        context.ajax.initialFetches();
       }
     }
     loadFonts();
@@ -83,9 +90,8 @@ export default function App() {
 
   const navOptions = [
     { name: "track", label: "track!" },
-    { name: "projects", label: "projects" },
     { name: "logs", label: "logs" },
-    { name: "user", label: "user" },
+    { name: "settings", label: "settings" },
   ];
 
   if (fontsLoaded.value) {
@@ -101,9 +107,8 @@ export default function App() {
           </View>
           <View style={styles.content}>
             {context.currentPage.value == "logs" && <Logs></Logs>}
-            {context.currentPage.value == "track" && <Log></Log>}
-            {context.currentPage.value == "projects" && <Projects></Projects>}
-            {context.currentPage.value == "user" && <User></User>}
+            {context.currentPage.value == "track" && <Projects></Projects>}
+            {context.currentPage.value == "settings" && <Settings></Settings>}
           </View>
 
           <View style={styles.footer}>
@@ -129,10 +134,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "flex-start",
-    height: "15%",
+    height: "13%",
     width: "100%",
     backgroundColor: beigeColor,
-    paddingTop: 10,
+    paddingTop: 5,
     paddingBottom: 5,
   },
   content: {
@@ -141,7 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",
-    height: "72%",
+    height: "74%",
     // create some breathing room above any content
     paddingTop: 10,
     backgroundColor: offWhite,

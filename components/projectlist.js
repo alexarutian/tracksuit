@@ -1,6 +1,8 @@
 import React from "react";
 import { AppContext } from "../contexts/appcontext.js";
 import ItemLine from "./itemline.js";
+import { lightBeigeColor } from "../utilities/stylevars.js";
+
 import { Text, View, StyleSheet } from "react-native";
 
 const ProjectList = () => {
@@ -15,13 +17,11 @@ const ProjectList = () => {
 
   return (
     <View style={styles.container}>
-      <View>
-        {context.projectList.value.map((item, idx) => (
-          <View key={idx} style={styles.projectListItem}>
-            <ItemLine name={item.name} options={projectOptionsMenu}></ItemLine>
-          </View>
-        ))}
-      </View>
+      {context.projectList.value.map((item, idx) => (
+        <View key={idx} style={styles.projectListItem}>
+          <ItemLine item={item}></ItemLine>
+        </View>
+      ))}
     </View>
   );
 };
@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
   container: {
     direction: "column",
     justifyContent: "flex-start",
+    width: "100%",
   },
   projectListItem: {
-    borderBottomWidth: 1,
-    borderBottomColor: "lightgray",
+    marginBottom: 5,
   },
 });
 

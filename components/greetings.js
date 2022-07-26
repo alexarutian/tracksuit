@@ -1,4 +1,5 @@
 import React from "react";
+import TSText from "../components/tstext.js";
 import { AppContext } from "../contexts/appcontext.js";
 import { redColor } from "../utilities/stylevars.js";
 import { Text, View, StyleSheet } from "react-native";
@@ -21,17 +22,12 @@ const Greetings = ({ name }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontFamily: "Epilogue" }}>
-        {greetingString}, <Text style={{ fontFamily: "EpilogueSemiBold" }}>{name}</Text>!
-      </Text>
-      {/* <Text>{todayTime}</Text> */}
-      <Text style={{ fontFamily: "Epilogue" }}>
+      <TSText>
         You are currently working on{" "}
-        <Text style={{ fontWeight: "bold", color: redColor, fontFamily: "EpilogueSemiBold" }}>
+        <TSText bold color={redColor}>
           {context.currentProjectName.value}
-        </Text>
-      </Text>
-      {/* <Text>{context.userToken.value}</Text> */}
+        </TSText>
+      </TSText>
     </View>
   );
 };

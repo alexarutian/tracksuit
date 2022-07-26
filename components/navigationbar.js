@@ -6,11 +6,6 @@ import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 const NavigationBar = ({ options }) => {
   const context = React.useContext(AppContext);
 
-  const clicked = (page) => {
-    // alert("hello!");
-    context.currentPage.set(page);
-  };
-
   return (
     <View style={styles.navPane}>
       {options.map((option, idx) => (
@@ -19,7 +14,7 @@ const NavigationBar = ({ options }) => {
           key={idx}
           item={option}
           onPress={() => {
-            clicked(option.name);
+            context.currentPage.set(option.name);
           }}
         >
           <Text style={context.currentPage.value == option.name ? styles.activeButtonLabel : styles.buttonLabel}>
@@ -31,19 +26,27 @@ const NavigationBar = ({ options }) => {
   );
 };
 
+const navButtonStyle = {
+  textAlign: "center",
+  fontWeight: "bold",
+  fontSize: 24,
+  letterSpacing: 1.2,
+  fontFamily: "Chicle",
+};
+
 const styles = StyleSheet.create({
   navPane: {
     height: 80,
     width: "100%",
     padding: 10,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: beigeColor,
   },
   navButton: {
     height: 50,
-    width: 85,
+    width: 100,
     padding: 5,
     borderRadius: 5,
     justifyContent: "center",
@@ -51,20 +54,12 @@ const styles = StyleSheet.create({
     backgroundColor: lightBeigeColor,
   },
   buttonLabel: {
+    ...navButtonStyle,
     color: goldColor,
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 24,
-    letterSpacing: 1.2,
-    fontFamily: "Chicle",
   },
   activeButtonLabel: {
+    ...navButtonStyle,
     color: redColor,
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 24,
-    letterSpacing: 1.2,
-    fontFamily: "Chicle",
     textDecorationColor: redColor,
     textDecorationStyle: "dotted",
     textDecorationLine: "underline",

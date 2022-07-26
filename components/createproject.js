@@ -1,9 +1,33 @@
 import React from "react";
+import TSButton from "./tsbutton.js";
 import { AppContext } from "../contexts/appcontext.js";
 import { getStateValue } from "../utilities/contexthelper.js";
 import { redColor } from "../utilities/stylevars.js";
 import { createNewProject } from "../utilities/ajax.js";
 import { Text, TextInput, StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
+const styles = StyleSheet.create({
+  container: { justifyContent: "center", alignItems: "center", marginBottom: 10 },
+  inputRow: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 15,
+  },
+  input: {
+    height: 40,
+    width: 275,
+    marginBottom: 5,
+    padding: 5,
+    fontSize: 18,
+    fontFamily: "Epilogue",
+    alignSelf: "flex-start",
+    backgroundColor: "white",
+    borderRadius: 8,
+  },
+});
 
 const CreateProject = () => {
   const context = React.useContext(AppContext);
@@ -17,50 +41,28 @@ const CreateProject = () => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        onChangeText={textValue.set}
-        value={textValue.value}
-        placeholder="project name here"
-        selectTextOnFocus={true}
-        clearButtonMode="always"
-      ></TextInput>
+      <View style={styles.inputRow}>
+        <TextInput
+          style={styles.input}
+          onChangeText={textValue.set}
+          value={textValue.value}
+          placeholder="project name here"
+          selectTextOnFocus={true}
+          clearButtonMode="always"
+        ></TextInput>
+        <Ionicons name="close" size={30} color={redColor} />
+      </View>
       <View>
-        <TouchableOpacity style={styles.button} onPress={createNewProj}>
-          <Text style={styles.buttonLabel}>add project</Text>
-        </TouchableOpacity>
+        <TSButton
+          label={"add project"}
+          fontColor={"white"}
+          functionOnPress={createNewProj}
+          width={150}
+          backgroundColor={redColor}
+        ></TSButton>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: { justifyContent: "center", alignItems: "center", borderWidth: 1 },
-  input: {
-    height: 40,
-    width: 300,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    fontSize: 18,
-    fontFamily: "Epilogue",
-  },
-  button: {
-    height: 45,
-    width: 150,
-    padding: 10,
-    backgroundColor: redColor,
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonLabel: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 20,
-    fontFamily: "Chicle",
-    letterSpacing: 1.2,
-  },
-});
 
 export default CreateProject;

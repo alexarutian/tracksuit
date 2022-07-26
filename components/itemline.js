@@ -1,67 +1,118 @@
 import React from "react";
 import { AppContext } from "../contexts/appcontext.js";
 import { getStateValue } from "../utilities/contexthelper.js";
-import { goldColor, greenColor } from "../utilities/stylevars.js";
-import ItemOptionMenu from "./itemoptionmenu.js";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { createNewLog } from "../utilities/ajax.js";
+import { goldColor, greenColor, beigeColor } from "../utilities/stylevars.js";
+import { Text, View, StyleSheet, Pressable, TextInput } from "react-native";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
-const ItemLine = ({ name, options }) => {
+const ItemLine = ({ item }) => {
   const context = React.useContext(AppContext);
 
-  const optionOpen = getStateValue(false);
-
-  const openOptions = () => {
-    // alert(name);
-    optionOpen.set(true);
+  const createLog = async (project) => {
+    context.currentProjectName.set(project.name);
+    createNewLog(context, { project_id: project.id, user_token: context.userToken.value });
+  };
+  const toggleOpenProject = (project) => {
+    if (context.openProject.value == project) {
+      context.openProject.set(null);
+    } else {
+      context.openProject.set(project);
+    }
   };
 
-  const closeOptions = () => {
-    optionOpen.set(false);
-  };
+  //      <View style={context.currentProjectName.value == item.name ? styles.itemFirstLineSelected : styles.itemFirstLine}>
 
   return (
-    <View style={styles.container}>
-      <View style={styles.line}>
-        <Text style={styles.bigBoldLabel}>{name}</Text>
+    <View style={context.currentProjectName.value == item.name ? styles.containerSelected : styles.container}>
+      <View style={styles.itemFirstLine}>
+        <Pressable
+          style={styles.itemLabel}
+          onPress={() => {
+            toggleOpenProject(item);
+          }}
+        >
+          <Text style={styles.bigBoldLabel}>{item.name}</Text>
+        </Pressable>
         <Pressable
           onPress={() => {
-            openOptions(name);
+            createLog(item);
           }}
-          // additional radius outside of pressable area
-          hitSlop={10}
         >
-          <SimpleLineIcons name="options" size={24} color={"black"} />
+          {context.currentProjectName.value !== item.name && (
+            <Ionicons name="checkmark-circle-outline" size={24} color={beigeColor} />
+          )}
+          {context.currentProjectName.value == item.name && (
+            <Ionicons name="checkmark-circle" size={24} color={goldColor} />
+          )}
         </Pressable>
       </View>
-      <ItemOptionMenu
-        title={name}
-        options={options}
-        isVisible={optionOpen.value}
-        dismiss={closeOptions}
-      ></ItemOptionMenu>
+
+      {context.openProject.value == item && (
+        <View style={styles.itemOptionsLine}>
+          <Pressable style={styles.lineOption}>
+            <AntDesign name="edit" size={24} color={beigeColor} />
+          </Pressable>
+          <Pressable style={styles.lineOption}>
+            <FontAwesome name="trash" size={24} color={beigeColor} />
+          </Pressable>
+          <Pressable style={styles.lineOption}>
+            <FontAwesome name="archive" size={24} color={beigeColor} />
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
-  line: {
-    // borderWidth: 1,
+  container: {
+    backgroundColor: "white",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    width: "100%",
+    padding: 15,
+    borderRadius: 5,
+  },
+  containerSelected: {
+    backgroundColor: "white",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    width: "100%",
+    padding: 15,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: goldColor,
+  },
+  itemFirstLine: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    width: "100%",
-    padding: 10,
-    marginBottom: 5,
-    borderRadius: 5,
-    // backgroundColor: goldColor,
+    padding: 5,
   },
+
   bigBoldLabel: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "black",
+    color: greenColor,
     fontFamily: "EpilogueSemiBold",
+  },
+  itemOptionsLine: {
+    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    width: "100%",
+    padding: 5,
+  },
+  lineOption: {
+    padding: 5,
+    marginLeft: 10,
   },
 });
 
