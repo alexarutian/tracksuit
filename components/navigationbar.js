@@ -1,4 +1,5 @@
 import React from "react";
+import * as SecureStore from "expo-secure-store";
 import { AppContext } from "../contexts/appcontext.js";
 import { colors } from "../utilities/stylevars.js";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
@@ -43,6 +44,10 @@ const styles = StyleSheet.create({
   },
 });
 
+async function saveCurrentPage(page) {
+  await SecureStore.setItemAsync("last_page", page);
+}
+
 const NavigationBar = ({ options }) => {
   const context = React.useContext(AppContext);
 
@@ -55,6 +60,7 @@ const NavigationBar = ({ options }) => {
           item={option}
           onPress={() => {
             context.currentPage.set(option.name);
+            saveCurrentPage(option.name);
           }}
         >
           <Text style={context.currentPage.value == option.name ? styles.activeButtonLabel : styles.buttonLabel}>

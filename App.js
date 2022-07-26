@@ -9,7 +9,7 @@ import { AppContext } from "./contexts/appcontext.js";
 import { getStateValue, getStateValueCollection } from "./utilities/contexthelper.js";
 import { getAllProjects, getAllLogs, createNewProject, createNewLog } from "./utilities/ajax.js";
 import { colors } from "./utilities/stylevars.js";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import * as Font from "expo-font";
 
@@ -61,12 +61,17 @@ export default function App() {
     try {
       const token = await SecureStore.getItemAsync("user_token");
       const email = await SecureStore.getItemAsync("user_email");
+      const lastPage = await SecureStore.getItemAsync("last_page");
 
       if (token) {
         context.userToken.set(token);
       }
       if (email) {
         context.email.set(email);
+      }
+
+      if (lastPage) {
+        context.currentPage.set(lastPage);
       }
     } catch (e) {
       context.error.set(e.message);
