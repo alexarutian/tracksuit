@@ -17,13 +17,6 @@ const styles = StyleSheet.create({
 const ProjectList = () => {
   const context = React.useContext(AppContext);
 
-  const projectOptionsMenu = [
-    { name: "openLog", label: "see logs" },
-    { name: "editProject", label: "edit" },
-    { name: "archiveProject", label: "archive" },
-    { name: "deleteProject", label: "delete" },
-  ];
-
   return (
     <View style={styles.container}>
       {context.projectList.value.map((item, idx) => (
