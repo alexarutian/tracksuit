@@ -4,12 +4,12 @@
     "slug": "tracksuit",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/tracksuitIcon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/tracksuitLogo.jpg",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#F0D2A8"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
