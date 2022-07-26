@@ -3,8 +3,8 @@ import TSButton from "./tsbutton.js";
 import { AppContext } from "../contexts/appcontext.js";
 import { getStateValue } from "../utilities/contexthelper.js";
 import { loginUser, deleteToken } from "../utilities/ajax.js";
-import { redColor, lightBeigeColor } from "../utilities/stylevars.js";
-import { Text, TextInput, StyleSheet, View, TouchableOpacity } from "react-native";
+import { colors } from "../utilities/stylevars.js";
+import { Text, TextInput, StyleSheet, View } from "react-native";
 
 const LoginUser = () => {
   const context = React.useContext(AppContext);
@@ -44,23 +44,23 @@ const LoginUser = () => {
           <View style={styles.modeButton}>
             <TSButton
               label={"login"}
-              fontColor={redColor}
+              fontColor={colors.redColor}
               functionOnPress={selectLogin}
               width={100}
               backgroundColor={"white"}
               borderWidth={2}
-              borderColor={redColor}
+              borderColor={colors.redColor}
             ></TSButton>
           </View>
           <View style={styles.modeButton}>
             <TSButton
               label={"new user"}
-              fontColor={redColor}
+              fontColor={colors.redColor}
               functionOnPress={selectCreate}
               width={100}
               backgroundColor={"white"}
               borderWidth={2}
-              borderColor={redColor}
+              borderColor={colors.redColor}
             ></TSButton>
           </View>
         </View>
@@ -89,7 +89,7 @@ const LoginUser = () => {
             fontColor={"white"}
             functionOnPress={login}
             width={100}
-            backgroundColor={redColor}
+            backgroundColor={colors.redColor}
           ></TSButton>
         </View>
       )}
@@ -126,7 +126,7 @@ const LoginUser = () => {
             fontColor={"white"}
             functionOnPress={createUser}
             width={100}
-            backgroundColor={redColor}
+            backgroundColor={colors.redColor}
           ></TSButton>
         </View>
       )}
@@ -137,7 +137,7 @@ const LoginUser = () => {
             fontColor={"white"}
             functionOnPress={logout}
             width={100}
-            backgroundColor={redColor}
+            backgroundColor={colors.redColor}
           ></TSButton>
         </View>
       )}
@@ -170,13 +170,13 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 20,
     borderRadius: 5,
-    backgroundColor: lightBeigeColor,
+    backgroundColor: colors.lightBeigeColor,
   },
   modeButton: {
     margin: 10,
   },
   optionButtonLabel: {
-    color: redColor,
+    color: colors.redColor,
     textAlign: "center",
     fontSize: 20,
     fontFamily: "Chicle",

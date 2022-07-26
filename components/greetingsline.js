@@ -1,10 +1,20 @@
 import React from "react";
 import TSText from "../components/tstext.js";
 import { AppContext } from "../contexts/appcontext.js";
-import { redColor } from "../utilities/stylevars.js";
-import { Text, View, StyleSheet } from "react-native";
+import { colors } from "../utilities/stylevars.js";
+import { View, StyleSheet } from "react-native";
 
-const Greetings = ({ name }) => {
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    direction: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+  },
+});
+
+const GreetingsLine = () => {
   const context = React.useContext(AppContext);
 
   const todayDate = new Date().toLocaleDateString();
@@ -24,7 +34,7 @@ const Greetings = ({ name }) => {
     <View style={styles.container}>
       <TSText>
         You are currently working on{" "}
-        <TSText bold color={redColor}>
+        <TSText bold color={colors.redColor}>
           {context.currentProjectName.value}
         </TSText>
       </TSText>
@@ -32,14 +42,4 @@ const Greetings = ({ name }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    direction: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-  },
-});
-
-export default Greetings;
+export default GreetingsLine;

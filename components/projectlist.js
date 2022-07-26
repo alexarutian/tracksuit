@@ -1,9 +1,18 @@
 import React from "react";
 import { AppContext } from "../contexts/appcontext.js";
 import ItemLine from "./itemline.js";
-import { lightBeigeColor } from "../utilities/stylevars.js";
+import { View, StyleSheet } from "react-native";
 
-import { Text, View, StyleSheet } from "react-native";
+const styles = StyleSheet.create({
+  container: {
+    direction: "column",
+    justifyContent: "flex-start",
+    width: "100%",
+  },
+  projectListItem: {
+    marginBottom: 5,
+  },
+});
 
 const ProjectList = () => {
   const context = React.useContext(AppContext);
@@ -25,16 +34,5 @@ const ProjectList = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    direction: "column",
-    justifyContent: "flex-start",
-    width: "100%",
-  },
-  projectListItem: {
-    marginBottom: 5,
-  },
-});
 
 export default ProjectList;

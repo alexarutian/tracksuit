@@ -6,9 +6,11 @@ const lightBeigeColor = "#F9EDDC";
 const grayColor = "#D6D6D6";
 const offWhite = "#FCF6EE";
 
+const colors = { goldColor, redColor, greenColor, beigeColor, lightBeigeColor, grayColor, offWhite };
+
 const leftFlexColumn = {
   flexDirection: "column",
   justifyContent: "flex-start",
 };
 
-export { goldColor, redColor, greenColor, beigeColor, lightBeigeColor, grayColor, offWhite, leftFlexColumn };
+export { colors };

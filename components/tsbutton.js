@@ -1,12 +1,13 @@
 import React from "react";
 import { AppContext } from "../contexts/appcontext.js";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
+import { colors } from "../utilities/stylevars.js";
 
 const TSButton = ({
   label,
-  backgroundColor,
-  fontColor,
-  width,
+  backgroundColor = colors.redColor,
+  fontColor = "white",
+  width = 150,
   functionOnPress,
   borderWidth = 0,
   borderColor = 0,

@@ -1,16 +1,14 @@
 import React from "react";
-
 import Settings from "./pages/settings.js";
 import Logs from "./pages/logs.js";
 import Projects from "./pages/projects.js";
-
-import Greetings from "./components/greetings.js";
+import GreetingsLine from "./components/greetingsline.js";
 import NavigationBar from "./components/navigationbar.js";
-
+import TSLogo from "./components/tslogo.js";
 import { AppContext } from "./contexts/appcontext.js";
 import { getStateValue, getStateValueCollection } from "./utilities/contexthelper.js";
 import { getAllProjects, getAllLogs, createNewProject, createNewLog } from "./utilities/ajax.js";
-import { beigeColor, goldColor, redColor, greenColor, offWhite } from "./utilities/stylevars.js";
+import { colors } from "./utilities/stylevars.js";
 import { StyleSheet, View, Text } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import * as Font from "expo-font";
@@ -36,6 +34,7 @@ export default function App() {
     error: null,
     userError: null,
   });
+
   // store ajax functions into context
   context.ajax = { getAllProjects, getAllLogs, createNewProject, createNewLog };
   // set up initial external fetches to run everytime the app is refreshed
@@ -99,11 +98,8 @@ export default function App() {
       <AppContext.Provider value={context}>
         <View style={styles.page}>
           <View style={styles.header}>
-            <Text style={{ fontSize: 60, fontFamily: "Chicle", letterSpacing: 1, color: goldColor }}>
-              tracksu<Text style={{ color: redColor }}>i</Text>
-              <Text style={{ color: greenColor }}>t</Text>
-            </Text>
-            <Greetings name={context.email.value}></Greetings>
+            <TSLogo />
+            <GreetingsLine name={context.email.value}></GreetingsLine>
           </View>
           <View style={styles.content}>
             {context.currentPage.value == "logs" && <Logs></Logs>}
@@ -128,7 +124,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     flex: 1,
     fontFamily: "Epilogue",
-    backgroundColor: beigeColor,
+    backgroundColor: colors.beigeColor,
   },
   header: {
     flexDirection: "column",
@@ -136,7 +132,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     height: "13%",
     width: "100%",
-    backgroundColor: beigeColor,
+    backgroundColor: colors.beigeColor,
     paddingTop: 5,
     paddingBottom: 5,
   },
@@ -149,7 +145,7 @@ const styles = StyleSheet.create({
     height: "74%",
     // create some breathing room above any content
     paddingTop: 10,
-    backgroundColor: offWhite,
+    backgroundColor: colors.offWhite,
   },
   footer: {
     width: "100%",

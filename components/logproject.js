@@ -1,7 +1,7 @@
 import React from "react";
 import { AppContext } from "../contexts/appcontext.js";
 import { createNewLog } from "../utilities/ajax.js";
-import { goldColor, greenColor, lightBeigeColor, redColor } from "../utilities/stylevars.js";
+import { colors } from "../utilities/stylevars.js";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 
 const LogProject = () => {
@@ -48,7 +48,7 @@ const SelectorButton = ({ item }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: redColor,
+    backgroundColor: colors.redColor,
     height: 50,
     padding: 10,
     margin: 5,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     textAlign: "center",
-    color: lightBeigeColor,
+    color: colors.lightBeigeColor,
     fontSize: 20,
   },
 });

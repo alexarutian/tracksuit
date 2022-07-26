@@ -1,33 +1,12 @@
 import React from "react";
 import TSText from "../components/tstext.js";
+import TSButton from "../components/tsbutton.js";
 import ProjectList from "../components/projectlist.js";
 import CreateProject from "../components/createproject.js";
-import { redColor, lightBeigeColor, goldColor } from "../utilities/stylevars.js";
+import { colors } from "../utilities/stylevars.js";
 import { AppContext } from "../contexts/appcontext.js";
 import { getStateValue } from "../utilities/contexthelper.js";
-import { StyleSheet, View, ScrollView, TouchableOpacity, Text } from "react-native";
-
-const Projects = () => {
-  const context = React.useContext(AppContext);
-  const addingProject = getStateValue(false);
-
-  const openAddProject = () => {
-    addingProject.set(true);
-  };
-
-  return (
-    <View style={styles.container}>
-      <TSText>{context.userError.value}</TSText>
-      <ScrollView>
-        <ProjectList></ProjectList>
-        {addingProject.value && <CreateProject></CreateProject>}
-        <TouchableOpacity style={styles.optionButton} onPress={openAddProject}>
-          <Text style={styles.optionButtonLabel}>Add New Project</Text>
-        </TouchableOpacity>
-      </ScrollView>
-    </View>
-  );
-};
+import { StyleSheet, View, ScrollView } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -43,12 +22,10 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     marginTop: 0,
-    backgroundColor: redColor,
+    backgroundColor: colors.redColor,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    // borderWidth: 2,
-    // borderColor: goldColor,
   },
   optionButtonLabel: {
     color: "white",
@@ -58,5 +35,30 @@ const styles = StyleSheet.create({
     letterSpacing: 1.2,
   },
 });
+const Projects = () => {
+  const context = React.useContext(AppContext);
+  const addingProject = getStateValue(false);
+
+  const openAddProject = () => {
+    addingProject.set(true);
+  };
+
+  return (
+    <View style={styles.container}>
+      <TSText>{context.userError.value}</TSText>
+      <ScrollView>
+        <ProjectList></ProjectList>
+        {addingProject.value && <CreateProject></CreateProject>}
+        <TSButton
+          label="Add New Project"
+          backgroundColor={colors.redColor}
+          fontColor="white"
+          functionOnPress={openAddProject}
+          style={styles.optionButton}
+        />
+      </ScrollView>
+    </View>
+  );
+};
 
 export default Projects;

@@ -1,10 +1,11 @@
 import React from "react";
 import TSButton from "./tsbutton.js";
+import TSTextInput from "./tstextinput.js";
 import { AppContext } from "../contexts/appcontext.js";
 import { getStateValue } from "../utilities/contexthelper.js";
-import { redColor } from "../utilities/stylevars.js";
+import { colors } from "../utilities/stylevars.js";
 import { createNewProject } from "../utilities/ajax.js";
-import { Text, TextInput, StyleSheet, View, TouchableOpacity, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const styles = StyleSheet.create({
@@ -17,15 +18,8 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   input: {
-    height: 40,
-    width: 275,
     marginBottom: 5,
-    padding: 5,
-    fontSize: 18,
-    fontFamily: "Epilogue",
     alignSelf: "flex-start",
-    backgroundColor: "white",
-    borderRadius: 8,
   },
 });
 
@@ -42,15 +36,15 @@ const CreateProject = () => {
   return (
     <View style={styles.container}>
       <View style={styles.inputRow}>
-        <TextInput
-          style={styles.input}
-          onChangeText={textValue.set}
-          value={textValue.value}
+        <TSTextInput
           placeholder="project name here"
+          value={textValue.value}
+          onChangeText={textValue.set}
           selectTextOnFocus={true}
-          clearButtonMode="always"
-        ></TextInput>
-        <Ionicons name="close" size={30} color={redColor} />
+          clearButtonMode={true}
+          style={styles.input}
+        ></TSTextInput>
+        <Ionicons name="close" size={30} color={colors.redColor} />
       </View>
       <View>
         <TSButton
@@ -58,7 +52,7 @@ const CreateProject = () => {
           fontColor={"white"}
           functionOnPress={createNewProj}
           width={150}
-          backgroundColor={redColor}
+          backgroundColor={colors.redColor}
         ></TSButton>
       </View>
     </View>
