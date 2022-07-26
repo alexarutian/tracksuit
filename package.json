@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.18.3",
-    "@miblanchard/react-native-slider": "^2.1.0",
     "expo": "~45.0.0",
     "expo-constants": "~13.1.1",
     "expo-font": "~10.1.0",
@@ -29,17 +28,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@storybook/addon-actions": "^6.5.6",
-    "@storybook/addon-essentials": "^6.5.6",
-    "@storybook/addon-interactions": "^6.5.6",
-    "@storybook/addon-links": "^6.5.6",
-    "@storybook/addon-ondevice-actions": "^5.3.23",
-    "@storybook/builder-webpack4": "^6.5.6",
-    "@storybook/manager-webpack4": "^6.5.6",
-    "@storybook/react": "^6.5.6",
-    "@storybook/testing-library": "^0.0.11",
-    "babel-loader": "^8.2.5",
-    "storybook-react-context": "^0.6.0"
+    "babel-loader": "^8.2.5"
   },
   "private": true
 }
